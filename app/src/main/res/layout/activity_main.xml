@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/bluetoothStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Статус:"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bluetoothStatus"
+            app:layout_constraintEnd_toStartOf="@+id/bluetoothStatus"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/bluetoothStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/bluetoooth_status"
+            app:layout_constraintBottom_toTopOf="@+id/scan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/bluetoothStatusLabel" />
+
+
+        <Button
+            android:id="@+id/scan"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Включить Bluetooth"
+            app:layout_constraintBottom_toTopOf="@+id/off"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bluetoothStatusLabel"
+            app:layout_constraintWidth_max="300dp" />
+
+        <Button
+            android:id="@+id/off"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Выключить Bluetooth"
+            app:layout_constraintBottom_toTopOf="@+id/PairedBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan"
+            app:layout_constraintWidth_max="300dp" />
+
+        <Button
+            android:id="@+id/PairedBtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Показать спаренные устройства"
+            app:layout_constraintBottom_toTopOf="@+id/discover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/off"
+            app:layout_constraintWidth_max="300dp" />
+
+        <Button
+            android:id="@+id/discover"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Показать доступные устройства"
+            app:layout_constraintBottom_toTopOf="@+id/configure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PairedBtn"
+            app:layout_constraintWidth_max="300dp" />
+
+        <Button
+            android:id="@+id/configure"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Конфигурация сигнала и тест"
+            app:layout_constraintBottom_toTopOf="@+id/devicesListView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/discover"
+            app:layout_constraintWidth_max="300dp" />
+
+
+        <ListView
+            android:id="@+id/devicesListView"
+            android:layout_width="@dimen/width_300dp"
+            android:layout_height="300dp"
+            android:choiceMode="singleChoice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/configure" />
+
+        <!--  app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"-->
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

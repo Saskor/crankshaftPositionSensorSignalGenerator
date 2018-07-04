@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerViewRelLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/signalFrontNumberLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Фронт сигнала № " />
+
+            <EditText
+                android:id="@+id/signalFrontNumberEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:hint="1"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+
+            <CheckBox
+                android:id="@+id/firstCrankRevCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="1-ый об КВ"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/addButton"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="5dp"
+                android:padding="1dp"
+                android:text="+"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/removeButton"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="5dp"
+                android:padding="1dp"
+                android:text="-"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/toothNumberEditText"
+                android:layout_width="49dp"
+                android:layout_height="@dimen/height_40dp"
+                android:ems="3"
+                android:hint="Зуб №"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/toothPlusRadioGroup"
+                android:layout_width="240dp"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/plus00radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="+0.0"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/plus025radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="+0.25"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/plus050radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="+0.5"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/plus075radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="+0.75"
+                    android:textSize="12sp" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:layout_width="330dp"
+            android:layout_height="1dp"
+            android:background="#d3d3d3" />
+    </LinearLayout>
+
+</RelativeLayout>

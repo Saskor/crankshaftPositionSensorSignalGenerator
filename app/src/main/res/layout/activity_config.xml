@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfigActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+
+        <Button
+            android:id="@+id/setCKPSignalParamsButton"
+            android:layout_width="@dimen/width_300dp"
+            android:layout_height="@dimen/height_40dp"
+            android:text="Задать параметры сигнала ДПКВ"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <Button
+            android:id="@+id/setCAMSignalParamsButton"
+            android:layout_width="@dimen/width_300dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginTop="10dp"
+            android:text="Задать параметры сигнала ДПРВ"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setCKPSignalParamsButton"
+            tools:layout_width="@dimen/width_300dp" />
+
+        <Button
+            android:id="@+id/launchTest"
+            android:layout_width="@dimen/width_300dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_marginTop="10dp"
+            android:text="Тест блока управления ДВС"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setCAMSignalParamsButton" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

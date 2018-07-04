@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CKP CAM sensor signal generator</string>
+    <string name="incoming_data">&lt;Входящие данные&gt;</string>
+    <string name="bluetoooth_status">&lt;Статус Bluetooth&gt;</string>
+    <string name="remote_service_started">&lt;remote_service_started&gt;</string>
+    <string name="remote_service_stopped">&lt;remote_service_stopped&gt;</string>
+    <string name="remote_service_connected">&lt;remote_service_connected&gt;</string>
+    <string name="remote_service_disconnected">&lt;remote_service_disconnected&gt;</string>
+
+</resources>
