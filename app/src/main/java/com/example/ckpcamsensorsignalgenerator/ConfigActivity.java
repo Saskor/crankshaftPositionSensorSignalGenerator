@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-;
 
 public class ConfigActivity extends AppCompatActivity {
     private Button setCPKsignal;
@@ -23,11 +22,11 @@ public class ConfigActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
-
+        //GUI Elems
         setCPKsignal = (Button)findViewById(R.id.setCKPSignalParamsButton);
         setCAMsignal = (Button)findViewById(R.id.setCAMSignalParamsButton);
         launchTest = (Button)findViewById(R.id.launchTest);
-
+        //Buttons ClickListeners
         setCPKsignal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +52,7 @@ public class ConfigActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Action Bar Back Arrow ClickListener
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

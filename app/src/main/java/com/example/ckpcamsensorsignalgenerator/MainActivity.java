@@ -49,25 +49,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Get Bluetooth Permissions From User
         int pCheck = this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
         if (pCheck != 0) {
             this.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ACTION_REQUEST_MULTIPLE_PERMISSION);        }
-
+        //GUI Elems
         mBluetoothStatus = findViewById(R.id.bluetoothStatus);
         mScanBtn = findViewById(R.id.scan);
         mOffBtn = findViewById(R.id.off);
         mDiscoverBtn = findViewById(R.id.discover);
         mListPairedDevicesBtn = findViewById(R.id.PairedBtn);
         mConfigureButton = findViewById(R.id.configure);
-
+        //List Adapter For Represent List Of Bluetooth Devices
         mBTArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         mBTAdapter = BluetoothAdapter.getDefaultAdapter(); // get a handle on the bluetooth radio
 
         mDevicesListView = findViewById(R.id.devicesListView);
         mDevicesListView.setAdapter(mBTArrayAdapter); // assign model to view
         mDevicesListView.setOnItemClickListener(mDeviceClickListener);
-
+        //Get Shared Pref
         mSharedPreferences = getSharedPreferences("ckpSignalGenerator.SHARED_PREF", Context.MODE_PRIVATE);
         mShareEditor = mSharedPreferences.edit();
 
@@ -84,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 mBluetoothStatus.setText("Bluetooth на Вашем устройстве выключен." );
             }
-
+            //Buttons ClickListeners 
             mScanBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     bluetoothOn(v);
                 }
             });
-
+            //BT On Button Action
             mOffBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){

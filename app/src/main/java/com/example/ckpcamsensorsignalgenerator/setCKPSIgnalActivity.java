@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 public class setCKPSIgnalActivity extends AppCompatActivity {
-
+    //GUI Elems
     private EditText allTeeth;
     private EditText teethMissing;
     private RadioButton increaseSignalRadioButton;
@@ -38,16 +38,16 @@ public class setCKPSIgnalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_ckpsignal);
-
+        //Get SharedPreferences
         mSharedPreferences = getSharedPreferences("ckpSignalGenerator.SHARED_PREF", Context.MODE_PRIVATE);
         mShareEditor = mSharedPreferences.edit();
-
+        //GUI Elems
         allTeeth = (EditText)findViewById(R.id.allTeeth);
         teethMissing = (EditText)findViewById(R.id.teethMissing);
         increaseSignalRadioButton = (RadioButton)findViewById(R.id.increaseSignalRadioButton);
         decreaseSignalRadioButton = (RadioButton)findViewById(R.id.decreaseSignalRadioButton);
         applyCKPSignalParams = (Button)findViewById(R.id.applyCKPSignalParams);
-
+        //Set GUI Elems Values
         allTeethText = mSharedPreferences.getString("allTeeth","");
         teethMissingText = mSharedPreferences.getString("teethMissing", "");
         ckpSignalIncrease = mSharedPreferences.getString("signalIncrease", "");
@@ -70,7 +70,7 @@ public class setCKPSIgnalActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Back Arrow In Action Bar ClickListener
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -132,7 +132,7 @@ public class setCKPSIgnalActivity extends AppCompatActivity {
 
     private void saveStateAngLaunchParentActivity(){
         ckpSignalIncrease = HelperMethods.getBoolStringFromRBotton(increaseSignalRadioButton);
-
+        //Put Values Of GUI Elems to SharedPrefs
         mShareEditor.putString("allTeeth",HelperMethods.getText(allTeeth));
         mShareEditor.putString("teethMissing",HelperMethods.getText(teethMissing));
         mShareEditor.putString("signalIncrease", ckpSignalIncrease);

@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder> {
@@ -35,23 +34,23 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         public RadioButton plus050radioButton;
         public RadioButton plus075radioButton;
 
-
+        //ViewHolder Constructor
         public ViewHolder(View itemView) {
             super(itemView);
-
+            //First line List Item GUI Elems
             signalFrontNumberLabel = (TextView)itemView.findViewById(R.id.signalFrontNumberLabel);
             signalFrontNumberEditText = (EditText) itemView.findViewById(R.id.signalFrontNumberEditText);
             firstCrankRevCheckBox = (CheckBox) itemView.findViewById(R.id.firstCrankRevCheckBox);
             addButton = (Button) itemView.findViewById(R.id.addButton);
             removeButton = (Button) itemView.findViewById(R.id.removeButton);
-
+            //Second line List Item GUI Elems
             toothNumberEditText = (EditText) itemView.findViewById(R.id.toothNumberEditText);
             toothPlusRadioGroup = (RadioGroup) itemView.findViewById(R.id.toothPlusRadioGroup);
             plus00radioButton = (RadioButton) itemView.findViewById(R.id.plus00radioButton);
             plus025radioButton = (RadioButton) itemView.findViewById(R.id.plus025radioButton);
             plus050radioButton = (RadioButton) itemView.findViewById(R.id.plus050radioButton);
             plus075radioButton = (RadioButton) itemView.findViewById(R.id.plus075radioButton);
-
+            //Add List Item
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,7 +62,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                     } catch (ArrayIndexOutOfBoundsException e){e.printStackTrace();}
                 }
             });
-
+            //Remove List Item
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,7 +76,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                     }catch (ArrayIndexOutOfBoundsException e){e.printStackTrace();}
                 }
             });
-
+            //Get Values Of GUI Elems 
             signalFrontNumberEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -153,7 +152,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         }
 
     }
-
+    //Adapter Constructor
     public MyListAdapter(ArrayList<String[]> fronts) {
         this.fronts = fronts;
     }
@@ -162,13 +161,13 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     public int getItemCount() {
         return fronts.size();
     }
-
+    //Inflate View From list_item.xml Layout
     @Override
     public MyListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
         return new ViewHolder(v);
     }
-
+    //Set Values Of GUI Elems
     @Override
     public void onBindViewHolder(MyListAdapter.ViewHolder holder, int position) {
         temp = fronts.get(position);

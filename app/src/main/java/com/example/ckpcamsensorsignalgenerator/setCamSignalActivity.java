@@ -19,12 +19,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class setCamSignalActivity extends AppCompatActivity {
+    //GUI Elems variables
     private RadioButton camSignalTrueRadioButton;
     private RadioButton camSignalFalseRadioButton;
     private RadioButton firstTeethCamSignalTrueRadioButton;
     private RadioButton firstTeethCamSignalFalseRadioButton;
     private Button applyCAMSignalParams;
-
+    //Set RecyclerView variables
     private RecyclerView recyclerView;
     private RecyclerView.Adapter listAdapter;
     private RecyclerView.LayoutManager llm;
@@ -35,17 +36,6 @@ public class setCamSignalActivity extends AppCompatActivity {
     private String[] temp;
     private AlertDialog alert;
     private AlertDialog.Builder builder;
-
-    /*//recyclerViewItem views
-    private EditText signalFrontNumberEditText;
-    private CheckBox firstCrankRevCheckBox;
-    //second linear layout
-    private EditText toothNumberEditText;
-    private RadioButton plus00radioButton;
-    private RadioButton plus025radioButton;
-    private RadioButton plus050radioButton;
-    private RadioButton plus075radioButton;
-    private Handler mHandler;*/
 
     SharedPreferences mSharedPreferences;
     SharedPreferences.Editor mShareEditor;
@@ -59,16 +49,17 @@ public class setCamSignalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_cam_signal);
 
         Context context = getApplicationContext();
+        //Get SharedPreferences
         mSharedPreferences = getSharedPreferences("ckpSignalGenerator.SHARED_PREF", Context.MODE_PRIVATE);
         mShareEditor = mSharedPreferences.edit();
-
+        //GUI Elems
         camSignalTrueRadioButton = (RadioButton)findViewById(R.id.camSignalTrueRadioButton);
         camSignalFalseRadioButton = (RadioButton)findViewById(R.id.camSignalFalseRadioButton);
         firstTeethCamSignalTrueRadioButton = (RadioButton)findViewById(R.id.firstTeethCamSignalTrueRadioButton);
         firstTeethCamSignalFalseRadioButton = (RadioButton)findViewById(R.id.firstTeethCamSignalFalseRadioButton);
         applyCAMSignalParams = (Button)findViewById(R.id.applyCAMSIgnalParams);
         recyclerView = (RecyclerView)findViewById(R.id.rv);
-
+        //Get Values From SharedPreferences
         jsonFronts = mSharedPreferences.getString("jsonFronts","");
         ArrToIntent a = new Gson().fromJson(jsonFronts, ArrToIntent.class);
         if (a != null) {
@@ -81,11 +72,6 @@ public class setCamSignalActivity extends AppCompatActivity {
             fronts.add(temp);
         }
 
-        listAdapter = new MyListAdapter(fronts);
-        recyclerView.setAdapter(listAdapter);
-        llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-
         if (mSharedPreferences.getString("camSensorExist","").matches("0")) {
             camSignalFalseRadioButton.setChecked(true);
             camSignalTrueRadioButton.setChecked(false);
@@ -95,6 +81,12 @@ public class setCamSignalActivity extends AppCompatActivity {
             firstTeethCamSignalFalseRadioButton.setChecked(true);
             firstTeethCamSignalTrueRadioButton.setChecked(false);
         }
+
+        //Set RecyclerView
+        listAdapter = new MyListAdapter(fronts);
+        recyclerView.setAdapter(listAdapter);
+        llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
 
         applyCAMSignalParams.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +110,7 @@ public class setCamSignalActivity extends AppCompatActivity {
     private  void saveActivityState() {
         String frontNumber = "";
         String toothNumber = "";
-
+        //Check Missed EditText Inputs in Recycler View
         for (int i = 0; i < fronts.size(); i++) {
             if(fronts.get(i)[0].matches("")) {
                 if(frontNumber.matches("")) {
@@ -139,8 +131,9 @@ public class setCamSignalActivity extends AppCompatActivity {
         if (!frontNumber.matches("") || !toothNumber.matches("")) {
             missingCamFrontsInput(frontNumber, toothNumber);
         } else {
-            saveStateAngLaunchParentActivity();
+            saveStateAndLaunchParentActivity();
         }
+        //End Check
     }
 
     private void missingCamFrontsInput(String frontNumber, String toothNumber) {
@@ -177,11 +170,11 @@ public class setCamSignalActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void saveStateAngLaunchParentActivity(){
+    private void saveStateAndLaunchParentActivity(){
         camSignalExist = HelperMethods.getBoolStringFromRBotton(camSignalTrueRadioButton);
         camSignalOnFirstTeethCrank = HelperMethods.getBoolStringFromRBotton(firstTeethCamSignalTrueRadioButton);
         jsonFronts = new Gson().toJson(new ArrToIntent(fronts));
-
+        //Put Values Of GUI Elems To SharePref
         mShareEditor.putString("camSensorExist",camSignalExist);
         mShareEditor.putString("sigOnFirstCKPTooth",camSignalOnFirstTeethCrank);
         mShareEditor.putString("jsonFronts", jsonFronts);

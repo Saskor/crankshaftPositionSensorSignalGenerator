@@ -38,6 +38,7 @@ import java.util.UUID;
 public class testActivity extends AppCompatActivity {
 
     private static final int LAUNCH_TEST_RESULT = 103;
+    //GUI Elems
     private TextView label;
     private EditText signalFrequencyEditText;
     private Button launchTestButton;
@@ -143,7 +144,7 @@ public class testActivity extends AppCompatActivity {
         } else {
             bluetoothStatus.setText("Bluetooth на Вашем устройстве выключен." );
         }
-
+        //ConnectToBTDevice On Activity Created
         connectToBTDevice();
 
         btOnButton.setOnClickListener(new View.OnClickListener() {
@@ -159,14 +160,14 @@ public class testActivity extends AppCompatActivity {
                 bluetoothOff();
             }
         });
-
+        //Manual ConnectToBTDevice
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 connectToBTDevice();
             }
         });
-
+        //Send string to BT Device (Arduino)
         launchTestButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -222,7 +223,7 @@ public class testActivity extends AppCompatActivity {
 
     private void signalGenerateConditions() {
         boolean validFlag = true;
-        //ckp Inputs Validation
+        //ckpActivity Inputs Validation
         if (allTeeth == 0 || teethMissing == 0) {
             validFlag = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(testActivity.this);
@@ -245,7 +246,7 @@ public class testActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-
+        //camActivity Inputs Validation
         if(HelperMethods.getText(signalFrequencyEditText).matches("")) {
             validFlag = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(testActivity.this);
@@ -261,7 +262,7 @@ public class testActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-
+        //Check is enabled BT on your Device
         if(!mBTAdapter.isEnabled()) {
             validFlag = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(testActivity.this);
@@ -271,6 +272,7 @@ public class testActivity extends AppCompatActivity {
                     .setCancelable(true)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int flag) {
+                            //Enable BT on your Device
                             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                             bluetoothStatus.setText("Bluetooth на Вашем устройстве включен");
@@ -294,6 +296,45 @@ public class testActivity extends AppCompatActivity {
         }
     }
 
+    private String makeStringToWriteToBT() {
+        String toBT;
+        revolutionsPerMinut = Integer.parseInt(HelperMethods.getText(signalFrequencyEditText));
+        prescaler = Integer.toString(48000000 / (revolutionsPerMinut) / 60 * allTeeth * 2);
+        String counterResetValue = Integer.toString(allTeeth * 2);
+        String first = Integer.toString((allTeeth * 2) - (teethMissing + 1) * 2);
+        String second = Integer.toString((allTeeth * 2) - teethMissing);
+        String third = Integer.toString(allTeeth * 2 - (teethMissing + 1));
+        String fourth = Integer.toString(allTeeth * 2 + 1);
+        toBT = "<" + prescaler + "," + counterResetValue + "," + first + "," + second + "," + third + "," + fourth + ">";
+        return toBT;
+    }
+
+    private void bluetoothOn(){
+        if (!mBTAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            bluetoothStatus.setText("Bluetooth включен");
+            HelperMethods.showToast("Bluetooth включен", testActivity.this);
+
+        }
+        else{
+            HelperMethods.showToast("Bluetooth уже включен", testActivity.this);
+        }
+    }
+
+    private void bluetoothOff(){
+        mBTAdapter.disable(); // turn off
+        bluetoothStatus.setText("Bluetooth выключен");
+
+        HelperMethods.showToast("Bluetooth выключен", testActivity.this);
+    }
+
+    public static void showToast(String message, Context context) {
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0 ,0);
+        toast.show();
+    }
+    //To connect to remote BT device (arduino in my case)
     private void connectToBTDevice() {
         new Thread()
         {
@@ -332,7 +373,7 @@ public class testActivity extends AppCompatActivity {
             }
         }.start();
     }
-
+    //Thread to send and read Data from BT Device (arduino in my case)
     public class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
@@ -396,44 +437,5 @@ public class testActivity extends AppCompatActivity {
                 }
             } catch (IOException e) { }
         }
-    }
-
-    private String makeStringToWriteToBT() {
-        String toBT;
-        revolutionsPerMinut = Integer.parseInt(HelperMethods.getText(signalFrequencyEditText));
-        prescaler = Integer.toString(48000000 / (revolutionsPerMinut) / 60 * allTeeth * 2);
-        String counterResetValue = Integer.toString(allTeeth * 2);
-        String first = Integer.toString((allTeeth * 2) - (teethMissing + 1) * 2);
-        String second = Integer.toString((allTeeth * 2) - teethMissing);
-        String third = Integer.toString(allTeeth * 2 - (teethMissing + 1));
-        String fourth = Integer.toString(allTeeth * 2 + 1);
-        toBT = "<" + prescaler + "," + counterResetValue + "," + first + "," + second + "," + third + "," + fourth + ">";
-        return toBT;
-    }
-
-    private void bluetoothOn(){
-        if (!mBTAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            bluetoothStatus.setText("Bluetooth включен");
-            HelperMethods.showToast("Bluetooth включен", testActivity.this);
-
-        }
-        else{
-            HelperMethods.showToast("Bluetooth уже включен", testActivity.this);
-        }
-    }
-
-    private void bluetoothOff(){
-        mBTAdapter.disable(); // turn off
-        bluetoothStatus.setText("Bluetooth выключен");
-
-        HelperMethods.showToast("Bluetooth выключен", testActivity.this);
-    }
-
-    public static void showToast(String message, Context context) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0 ,0);
-        toast.show();
     }
 }
